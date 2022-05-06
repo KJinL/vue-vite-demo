@@ -43,10 +43,10 @@
   </div>
 </template>
 <script setup lang="ts">
-import {ref, nextTick} from 'vue';
+import {ref, nextTick, onMounted} from 'vue';
 import {echart1, echart2} from '../echart'
 import * as echarts from 'echarts'
-
+import {ECharts} from "echarts";
 
 interface ICard {
   title: string,
@@ -77,11 +77,22 @@ const cards = ref<ICard[]>([
   {title: '订单数', price: 3803, iconColor: 'text-blue-500', icon: "fas fa-award", total: 83493, totalTitle: '总订单数'},
   {title: '评论数', price: 8994, iconColor: 'text-red-500', icon: "fas fa-baseball-ball", total: 48920, totalTitle: '总评论'},
 ])
-
+let chart1: ECharts
+let chart2: ECharts
 nextTick(() => {
-  echarts.init(document.getElementById('echart1') as HTMLDivElement).setOption(echart1);
-  echarts.init(document.getElementById('echart2') as HTMLDivElement).setOption(echart1);
+  chart1 = echarts.init(document.getElementById('echart1') as HTMLDivElement)
+  chart1.setOption(echart1);
+  chart2 = echarts.init(document.getElementById('echart2') as HTMLDivElement)
+  chart2.setOption(echart1);
+
 })
+onMounted(() => {
+  window.onresize = () => {
+    chart1.resize()
+    chart2.resize()
+  }
+})
+
 </script>
 
 <style lang="scss">
