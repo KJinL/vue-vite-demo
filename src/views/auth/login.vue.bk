@@ -1,0 +1,45 @@
+<template>
+  <Form @submit="onSubmit" :validation-schema="schema">
+    <div class="w-[360px] bg-white -translate-y-10 rounded-md shadow-md">
+      <div class="p-6 flex flex-col justify-between">
+        <h2 class="text-center text-gray-700 text-lg">登录</h2>
+        <div class="mt-6">
+          <Field class="j-input" value="kajin" name="userPhone" label="用户名" placeholder="请输入账号"/>
+          <ErrorMessage name="userPhone" as="div" class="j-input-error"/>
+          <Field class="j-input" value="96e79218965eb72c92a549dd5a330112" name="passWord" type="password" label="密码"
+                 placeholder="请输入密码"/>
+          <ErrorMessage name="passWord" as="div" class="j-input-error"/>
+        </div>
+        <button class="j-button">登录</button>
+        <div class="flex justify-center mt-5">
+          <a href="#" class="text-xs text-gray-500 hover:text-violet-600 duration-200 ">网站首页</a>
+        </div>
+      </div>
+    </div>
+  </Form>
+</template>
+<script setup lang="ts">
+import v from '@/plugins/validate'
+import {useRouter} from "vue-router";
+import utils from "@/utils";
+
+const router = useRouter()
+const {Form, Field, ErrorMessage} = v;
+
+//验证规则
+const schema = v.yup.object({
+  userPhone: v.yup.string().required().min(2).label("用户名"),
+  passWord: v.yup.string().required().label("密码")
+})
+
+//点击事件
+const onSubmit = async (values: any) => {
+  utils.user.login(values)
+}
+
+</script>
+<style lang="scss">
+form {
+  @apply bg-slate-300 h-screen flex justify-center items-center p-10;
+}
+</style>

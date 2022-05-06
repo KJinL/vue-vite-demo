@@ -1,0 +1,17 @@
+.j-input {
+  // ring-violet-600 : input颜色
+  @apply border w-full rounded-sm py-1 px-2 outline-none border-gray-200 placeholder:text-xs
+  focus:ring-2 ring-offset-2 ring-violet-600 duration-300 focus:border-white mt-4;
+}
+
+.j-input-error {
+  @apply rounded-md bg-red-300 text-white  text-xs px-2 py-1 mt-2 bg-opacity-100;
+}
+
+.j-button {
+  @apply bg-violet-800 text-white w-full py-2 rounded-md mt-5 hover:bg-violet-600 duration-200
+}
+
+.j-danger {
+  @apply bg-fuchsia-700 hover:bg-fuchsia-500;
+}
