@@ -27,7 +27,7 @@ export default [
         message: '登录成功',
         status: 'success',
         data: {
-          token: Random.string(10),
+          tokenKey: Random.string(10),
         },
       }
     },

@@ -15,8 +15,8 @@
       <icon-full-screen-one theme="outline" size="24" fill="#333" @click="fullScreen" class="mr-5" v-else/>
       <div class="group relative">
         <div class="flex justify-center items-center">
-          <img :src="userInfo.info?.userHead" class="w-8 h-8 rounded-full object-cover"/>
-          <span class="ml-1 text-sm text-gray-600">{{ userInfo.info?.userName }}</span>
+          <img :src="userInfo.info?.avatar" class="w-8 h-8 rounded-full object-cover"/>
+          <span class="ml-1 text-sm text-gray-600">{{ userInfo.info?.name }}</span>
         </div>
         <section
             class="group-hover:block absolute right-0 top-full z-50 bg-white shadow-sm px-5 whitespace-nowrap border rounded-md hidden">
@@ -47,7 +47,6 @@ import Breadcrumb from '@/components/breadcrumb.vue'
 const menuService = Menu.getInstance()
 
 const userInfo = userStore()
-
 const isFullScreen = ref<boolean>(false)
 const fullScreen = () => {
   isFullScreen.value ? document.exitFullscreen() : document.documentElement.requestFullscreen()

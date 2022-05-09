@@ -1,11 +1,48 @@
-# Vue 3 + Typescript + Vite
+##图标
+>图标库为字节跳动开源的图片库iconpark https://iconpark.oceanengine.com/official
+1. 直接使用可以再官方复制vue代码
+2. 使用\<component :is="icons[‘iconName]">标签进行使用，需要注意的是此方式需要在script标签中将icons引入
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
-
-## Type Support For `.vue` Imports in TS
-
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+##路由自动注册
+###开启自动注册
+1. 修改 **env** 文件中的 **VITE_ROUTER_AUTOLOAD** 值为true<br/>
+2. 自动的注册的路由会以layout中的第一级子目录的vue文件为父路由，同时读取默认导出的**meta**值作为标题和icon
+```typescript
+  meta: {
+    auth: true,
+    menu: {
+      title: '管理员页面',// 菜单标题
+      icon: 'DashboardOne'// 菜单icon
+    }
+  }
+```
+3. 子 **view** 需要在 **src/views** 目录下创建与父 **view** 同名目录，
+在里面创建不同的模块目录，同时会读取默认导出的 **meta**中的值作为菜单标题
+```typescript
+  meta: {
+    name: 'admin.home',// 路由名称
+    menu: {
+      title: '状态'// 菜单标题
+    }
+  }
+```
+4. 子view如果需要在才但中额外分类父级菜单，则需要在**meta**中新增**pMeta**数据
+```typescript
+  meta: {
+    pMeta:{
+        meta: {
+            menu: {
+                title: 'Dashboard',
+                    icon: 'DashboardOne'
+            }
+        },
+    },
+    name: 'admin.home',// 路由名称
+    menu: {
+      title: '状态'// 菜单标题
+    }
+  }
+```
+###关闭自动注册
+1. 修改 **env** 文件中的 **VITE_ROUTER_AUTOLOAD** 值为false<br/>
+2. 参考**src\router\module**目录下路由写法，包含meta数据则自动注册到左侧菜单，否则不注册

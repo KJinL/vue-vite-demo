@@ -10,7 +10,7 @@ import {method} from "lodash";
 
 function checkLogin() {
     return http.request<ICheckLoginResponse>({
-        url: ApiEnum.API_CHANNEL_CHECK_LOGIN,
+        url: ApiEnum.API_CHECK_LOGIN,
         method: 'get'
     })
 }
@@ -18,7 +18,7 @@ function checkLogin() {
 
 export function login(data: ILoginParams) {
     return http.request<ILoginResponse>({
-        url: ApiEnum.API_CHANNEL_LOGIN,
+        url: ApiEnum.API_LOGIN,
         method: 'post',
         data,
     })

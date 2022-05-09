@@ -9,7 +9,9 @@ export interface IUserInfo{
 
 // 检查用户登录响应参数
 export interface ICheckLoginResponse {
-    item: IUserInfo
+    name: string,
+    age: number,
+    avatar: string,
 }
 
 // 登录请求参数

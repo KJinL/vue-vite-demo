@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="grid md:grid-cols-4 gap-3 bg-gray-100">
+    <div class="grid md:grid-cols-3 gap-3 bg-gray-100">
       <el-card
           shadow="hover"
           :body-style="{ padding: '20px' }"
@@ -10,14 +10,15 @@
       >
         <template #header>
           <div class="flex justify-between items-center">
-            {{ card.title }}
-            <el-tag type="danger" size="small" effect="dark">月</el-tag>
+            <h3 class="font-bold">{{ card.title }}</h3>
+            <el-tag type="danger" size="small" effect="dark">汇总</el-tag>
           </div>
         </template>
 
         <section class="flex mt-3 justify-between items-center">
-          <span class="text-3xl">$29322</span>
-          <i :class="[card.icon, card.iconColor]" class="text-5xl"></i>
+          <span class="text-3xl">{{ card.price }}</span>
+          <component :is="icons[card.icon]" :class="card.iconColor" class="text-4xl"/>
+          <!--          <i :class="[card.icon, card.iconColor]" class="text-5xl"></i>-->
         </section>
         <section class="text-base mt-6 flex justify-between">
           {{ card.totalTitle }}
@@ -46,7 +47,9 @@
 import {ref, nextTick, onMounted} from 'vue';
 import {echart1, echart2} from '../echart'
 import * as echarts from 'echarts'
+import * as icons from '@icon-park/vue-next'
 import {ECharts} from "echarts";
+import {getBarOption, getInsideOption} from "@/views/admin/dashboard/charts/dashboard";
 
 interface ICard {
   title: string,
@@ -59,31 +62,37 @@ interface ICard {
 
 const cards = ref<ICard[]>([
   {
-    title: '总人数',
+    title: '用户访问',
     price: 23343,
     iconColor: 'text-violet-500',
-    icon: "fas fa-address-card",
+    icon: "EveryUser",
     total: 3892982,
-    totalTitle: '总人数'
+    totalTitle: '总访问量'
   },
   {
-    title: '销售额',
+    title: '房源详情浏览',
     price: 18393,
     iconColor: 'text-green-600',
-    icon: "fas fa-apple-alt",
+    icon: "BuildingThree",
     total: 9387382,
-    totalTitle: '总销售额'
+    totalTitle: '总浏览量'
   },
-  {title: '订单数', price: 3803, iconColor: 'text-blue-500', icon: "fas fa-award", total: 83493, totalTitle: '总订单数'},
-  {title: '评论数', price: 8994, iconColor: 'text-red-500', icon: "fas fa-baseball-ball", total: 48920, totalTitle: '总评论'},
+  {
+    title: '进线电话',
+    price: 3803,
+    iconColor: 'text-blue-500',
+    icon: "PhoneCall",
+    total: 83493,
+    totalTitle: '总进线量'
+  },
 ])
 let chart1: ECharts
 let chart2: ECharts
 nextTick(() => {
   chart1 = echarts.init(document.getElementById('echart1') as HTMLDivElement)
-  chart1.setOption(echart1);
+  chart1.setOption(getBarOption());
   chart2 = echarts.init(document.getElementById('echart2') as HTMLDivElement)
-  chart2.setOption(echart1);
+  chart2.setOption(getInsideOption());
 
 })
 onMounted(() => {

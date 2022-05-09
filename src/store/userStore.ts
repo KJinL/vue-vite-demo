@@ -7,17 +7,17 @@ import userApi from "@/apis/user/request/userApi";
 export default defineStore('user', {
     state: () => {
         return {
-            info: {} as null | IUserInfo,
+            info: {} as null | ICheckLoginResponse,
         }
     },
     actions: {
         async getUserInfo() {
             if (store.get(CacheEnum.TOKEN_KEY)) {
                 const res = await userApi.checkLogin()
-                this.info = res.data.item
+                this.info = res.data
             }
         },
-        updateUserInfo(userInfo: IUserInfo) {
+        updateUserInfo(userInfo: ICheckLoginResponse) {
             this.info = userInfo
         }
     },

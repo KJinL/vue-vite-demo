@@ -2,9 +2,10 @@
   <div class="admin-menu" :class="{ close: menuService.close.value }">
     <div class="menu w-[200px] bg-gray-800">
       <div class="logo">
-        <icon-home theme="outline" size="18" fill="#dcdcdc" class="mr-2"/>
-        <!-- <i class="fas fa-robot text-fuchsia-300 mr-2 text-[25px]"></i> -->
-        <span class="text-md">管理后台</span>
+        <router-link to="/admin/dashboard/home" class="logo flex justify-center items-center cursor-pointer">
+          <icon-home theme="outline" size="18" fill="#dcdcdc" class="mr-2"/>
+          <span class="text-md">管理后台</span>
+        </router-link>
       </div>
       <!-- 菜单 -->
       <div class="container">
