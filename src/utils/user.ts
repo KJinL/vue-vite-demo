@@ -11,10 +11,10 @@ export function isLogin() {
 
 export async function login(values: ILoginParams) {
     const {
-        data: {tokenKey, info},
+        data: {tokenKey},
     } = await userApi.login(values)
     store.set(CacheEnum.TOKEN_KEY, tokenKey)
-    userStore().updateUserInfo(info)
+    await userStore().getUserInfo()
 
     const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'admin.home'
     router.push({name: routeName})
